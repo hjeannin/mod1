@@ -72,6 +72,7 @@ Engine::initLight(void)
 	this->light0status = true;
 	this->light1status = true;
 
+	glEnable(GL_LIGHT0);
 	float ambientLight_0[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	float diffuseLight_0[] = { 0.6f, 0.0f, 0.0f, 1.0f };
 	float specularLight_0[] = { 0.9f, 0.0f, 0.0f, 1.0f };
