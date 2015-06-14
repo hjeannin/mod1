@@ -30,10 +30,12 @@ Map::Map(int map_size) : _map_size(map_size)
         i++;
     }
     this->space = 1.0 / ((float)this->_map_size - 1);
-    this->gpa_size = this->_map_size * this->_map_size * 3 * 6;
-    this->wpa_size = this->_map_size * this->_map_size * 3 * 6;
-    this->ground_point_array = new float[this->gpa_size];
-    this->water_point_array = new float[this->wpa_size];
+    this->gpa_size = POINT * SQUARE * MAPSIZE * MAPSIZE;
+    this->wpa_size = POINT * SQUARE * MAPSIZE * MAPSIZE;
+    this->sa_size = POINT * SQUARE * MAPSIZE * 4;
+    this->ground_array = new float[this->gpa_size];
+    this->water_array = new float[this->wpa_size];
+    this->sides_array = new float[this->sa_size];
     return ;
 	return;
 }
@@ -48,8 +50,8 @@ Map::~Map(void)
 		i++;
 	}
 	delete [] this->map;
-	delete [] this->ground_point_array;
-	delete [] this->water_point_array;
+	delete [] this->ground_array;
+	delete [] this->water_array;
 	return ;
 }
 
@@ -59,6 +61,7 @@ Map::print(void)
     int     i = 0;
     int     j = 0;
 
+    std::cout << std::endl;
     std::cout << "[ground, water] : size = " << this->_map_size << std::endl;
     while (i < this->_map_size)
     {

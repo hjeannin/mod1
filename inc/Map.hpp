@@ -1,6 +1,10 @@
 #ifndef MAP_HPP
 # define MAP_HPP
 
+# define SQUARE 6
+# define POINT	3
+# define MAPSIZE this->_map_size
+
 #include <iostream>
 #include <cstdlib>
 
@@ -17,10 +21,15 @@ public:
     }                   t_p;
 
     t_p     **map;
-    float   *ground_point_array;
-    float   *water_point_array;
+
+    float   *ground_array;
+    float   *water_array;
+    float	*sides_array;
+
     int		gpa_size;
     int		wpa_size;
+    int		sa_size;
+
     float	space;
 
 	Map(void);
