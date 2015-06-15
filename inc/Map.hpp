@@ -29,8 +29,7 @@ public:
     int		gpa_size;
     int		wpa_size;
     int		sa_size;
-
-    float	space;
+    int     fa_size;
 
 	Map(void);
 	Map(const Map &src);
