@@ -16,8 +16,8 @@ private:
 public:
     typedef struct      s_p
     {
-        int     g;      // ground
-        int     w;      // water
+        float     g;      // ground
+        float     w;      // water
     }                   t_p;
 
     t_p     **map;
@@ -26,10 +26,12 @@ public:
     float   *water_array;
     float	*sides_array;
 
-    int		gpa_size;
-    int		wpa_size;
-    int		sa_size;
-    int     fa_size;
+    int		gpa_size; // grount array
+    int		wpa_size; // water array
+    int		sa_size; // sides array
+    int     fa_size; // full array size needed
+
+    float   space; // space between 2 points of the map, range(-0.5, 0.5)
 
 	Map(void);
 	Map(const Map &src);

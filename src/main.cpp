@@ -7,7 +7,7 @@
 int				main()
 {
 	Engine		engine;
-	Map			*map = new Map(5);
+	Map			*map = new Map(4);
 
 	srandom(time(0));
 	engine.init();
