@@ -182,17 +182,6 @@ Map::fillWaterArray(void)
 }
 
 void
-Map::fillSidesArray(void)
-{
-    int i;
-    for (i = 0; i < this->sa_size; i++)
-    {
-        this->sides_array[i] = 0;
-    }
-    return ;
-}
-
-void
 Map::print(void)
 {
     int     i = 0;
@@ -201,7 +190,6 @@ Map::print(void)
     std::cout << std::endl;
     std::cout << "Ground point Array: " << this->ga_size << std::endl;
     std::cout << "Water point Array: " << this->wa_size << std::endl;
-    std::cout << "Sides point Array: " << this->sa_size << std::endl;
     std::cout << "Space between 2 points: " << this->space << std::endl;
     std::cout << "[ground, water] : size = " << this->_map_size << std::endl;
     while (i < this->_map_size)

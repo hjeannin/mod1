@@ -146,13 +146,9 @@ Engine::init(void)
 	// Convert map and put it in vertexTab
 	map->fillGroundArray();
 	map->fillWaterArray();
-	map->fillSidesArray();
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, this->map->water_array);
-	// glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, this->map->water_array);
-	// glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, this->map->sides_array);
 	printArray(this->map->ground_array, this->map->ga_size);
 	printArray(this->map->water_array, this->map->wa_size);
-	printArray(this->map->sides_array, this->map->sa_size);
 
 	return (0);
 }
@@ -190,7 +186,7 @@ Engine::renderGround(void)
 	int i = 0;
 
 	glBegin(GL_TRIANGLES);
-	glColor3f(0.5f, 0.0f, 0.5f);
+	glColor3f(0.6f, 0.4f, 0.2f);
 	for (i = 0; i < this->map->ga_size; i += 9)
 	{
 		glVertex3f(this->map->ground_array[i], this->map->ground_array[i + 1], this->map->ground_array[i + 2]);

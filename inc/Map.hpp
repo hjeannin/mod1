@@ -24,11 +24,9 @@ public:
 
     float     *ground_array;
     float     *water_array;
-    float     *sides_array;
 
     int		ga_size; // ground array
     int		wa_size; // water array
-    int		sa_size; // sides array
 
     float   space; // space between 2 points of the map, range(-0.5, 0.5)
 
@@ -44,7 +42,6 @@ public:
 	void	print(void);
     void    fillGroundArray(void);
     void    fillWaterArray(void);
-    void    fillSidesArray(void);
 
 	Map &operator=(Map const &rhs);
 };
