@@ -30,14 +30,12 @@ Map::Map(int map_size) : _map_size(map_size)
         i++;
     }
     this->ga_size = POINT * SQUARE * MAPSIZE * MAPSIZE;
-    this->wa_size = POINT * SQUARE * MAPSIZE * MAPSIZE;
-    this->sa_size = POINT * SQUARE * MAPSIZE * 4;
+    this->wa_size = (POINT * SQUARE * MAPSIZE * MAPSIZE) + (POINT * SQUARE * MAPSIZE * 4);
 
     this->space = 1.0 / ((float)this->_map_size - 1);
 
     this->ground_array = new float[this->ga_size];
     this->water_array = new float[this->wa_size];
-    this->sides_array = new float[this->sa_size];
 	return ;
 }
 
@@ -53,7 +51,6 @@ Map::~Map(void)
 	delete [] this->map;
 	delete [] this->ground_array;
 	delete [] this->water_array;
-    delete [] this->sides_array;
 	return ;
 }
 
@@ -179,6 +176,7 @@ Map::fillWaterArray(void)
         x = -0.5;
         z += this->space;
     }
+    //TODO add sides for water.
 }
 
 void
