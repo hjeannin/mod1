@@ -24,20 +24,19 @@ Map::Map(int map_size) : _map_size(map_size)
         while (j < map_size)
         {
             this->map[i][j].g = -0.5;
-            this->map[i][j].w = 0;
+            this->map[i][j].w = -0.2;
             j++;
         }
         i++;
     }
-    this->gpa_size = POINT * SQUARE * MAPSIZE * MAPSIZE;
-    this->wpa_size = POINT * SQUARE * MAPSIZE * MAPSIZE;
+    this->ga_size = POINT * SQUARE * MAPSIZE * MAPSIZE;
+    this->wa_size = POINT * SQUARE * MAPSIZE * MAPSIZE;
     this->sa_size = POINT * SQUARE * MAPSIZE * 4;
-    this->fa_size = this->gpa_size + this->wpa_size + this->sa_size;
 
     this->space = 1.0 / ((float)this->_map_size - 1);
 
-    this->ground_array = new float[this->gpa_size];
-    this->water_array = new float[this->wpa_size];
+    this->ground_array = new float[this->ga_size];
+    this->water_array = new float[this->wa_size];
     this->sides_array = new float[this->sa_size];
 	return ;
 }
@@ -185,6 +184,11 @@ Map::fillWaterArray(void)
 void
 Map::fillSidesArray(void)
 {
+    int i;
+    for (i = 0; i < this->sa_size; i++)
+    {
+        this->sides_array[i] = 0;
+    }
     return ;
 }
 
@@ -195,10 +199,9 @@ Map::print(void)
     int     j = 0;
 
     std::cout << std::endl;
-    std::cout << "Ground point Array: " << this->gpa_size << std::endl;
-    std::cout << "Water point Array: " << this->wpa_size << std::endl;
+    std::cout << "Ground point Array: " << this->ga_size << std::endl;
+    std::cout << "Water point Array: " << this->wa_size << std::endl;
     std::cout << "Sides point Array: " << this->sa_size << std::endl;
-    std::cout << "Full Array: " << this->fa_size << std::endl;
     std::cout << "Space between 2 points: " << this->space << std::endl;
     std::cout << "[ground, water] : size = " << this->_map_size << std::endl;
     while (i < this->_map_size)
@@ -209,7 +212,7 @@ Map::print(void)
             std::cout << "[" << this->map[i][j].g << ", " << this->map[i][j].w  <<\
  "]";
             j++;
-	}
+    	}
         std::cout << std::endl;
         i++;
     }

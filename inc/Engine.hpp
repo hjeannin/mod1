@@ -6,7 +6,7 @@
 # include "Camera.hpp"
 # include "Map.hpp"
 
-# define MAP_SIZE	4
+# define MAP_SIZE	3
 
 class Engine
 {
@@ -38,12 +38,12 @@ public:
 	Engine &operator=(Engine const &rhs);
 
 	int		init(void);
+	void	printArray(float *array, int array_size);
 	void	loop(void);
 	void	render(void);
 	void	renderAxes(void);
 	void	fillRandomly(int start, int size);
-	void	printArray(int start, int end);
-	void	renderTriangleArray(int start, int size);
+	void	renderTriangleArray(int index, int start, int size);
 	int		sdlError(int code);
 	void	setFOV(int new_fov);
 	void	initLight(void);

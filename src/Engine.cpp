@@ -126,7 +126,7 @@ Engine::init(void)
 		return (sdlError(0));
 	this->camera = new Camera();
 	this->map = new Map(MAP_SIZE);
-	this->vertex_tab = new float [this->map->fa_size];
+	this->vertex_tab = new float [500];
 	map->print();
 
 	glMatrixMode(GL_PROJECTION);
@@ -135,29 +135,40 @@ Engine::init(void)
 
 	glEnable(GL_DEPTH_TEST);
 	glShadeModel(GL_SMOOTH);
-
-	// Vertex reader
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, this->vertex_tab);
-
 	initLight();
 
+	// Vertex reader
+	// glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, this->vertex_tab);
 	// Generate and print points
-	fillRandomly(0, 128);
+	//	fillRandomly(0, 128);
 	// printArray(0, 128);
+
+	// Convert map and put it in vertexTab
+	map->fillGroundArray();
+	map->fillWaterArray();
+	map->fillSidesArray();
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, this->map->ground_array);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, this->map->water_array);
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, this->map->sides_array);
+	printArray(this->map->ground_array, this->map->ga_size);
+	printArray(this->map->water_array, this->map->wa_size);
+	printArray(this->map->sides_array, this->map->sa_size);
+
 	return (0);
 }
 
 void
-Engine::printArray(int start, int end)
+Engine::printArray(float *array, int array_size)
 {
 	int i;
+	std::cout << std::endl;
+    for (i = 0; i < array_size; i++)
+    {
+        std::cout << "[" << array[i] << "]";
+        // if (i % 3 == 0)
+        	// std::cout << std::endl;
+    }
 
-	for (i = start; i < end; i++)
-	{
-		if (i % 10 == 0)
-			std::cout << std::endl;
-		std::cout << "(" << i << ")[" << this->vertex_tab[i] << "] ";
-	}
 }
 
 void
@@ -221,13 +232,12 @@ Engine::render(void)
  	glDisable(GL_LIGHT1);
 
  	glEnable(GL_LIGHT0);
-	renderTriangleArray(0, 36);
+	renderTriangleArray(0, 0, map->ga_size);
 	glDisable(GL_LIGHT0);
 
 	glEnable(GL_LIGHT1);
-	renderTriangleArray(36, 128);
+	renderTriangleArray(1, 0, map->wa_size);
 	glDisable(GL_LIGHT1);
-
 
  	glDisable(GL_LIGHTING); // light OFF
 
@@ -248,11 +258,11 @@ Engine::fillRandomly(int start, int size)
 }
 
 void
-Engine::renderTriangleArray(int start, int size)
+Engine::renderTriangleArray(int index, int start, int size)
 {
-	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(index);
 	glDrawArrays(GL_TRIANGLES, start, size/3);
-	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(index);
 }
 
 void

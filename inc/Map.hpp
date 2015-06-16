@@ -3,7 +3,7 @@
 
 # define SQUARE 6
 # define POINT	3
-# define MAPSIZE this->_map_size
+# define MAPSIZE (this->_map_size - 1)
 
 #include <iostream>
 #include <cstdlib>
@@ -26,10 +26,9 @@ public:
     float   *water_array;
     float	*sides_array;
 
-    int		gpa_size; // grount array
-    int		wpa_size; // water array
+    int		ga_size; // ground array
+    int		wa_size; // water array
     int		sa_size; // sides array
-    int     fa_size; // full array size needed
 
     float   space; // space between 2 points of the map, range(-0.5, 0.5)
 
