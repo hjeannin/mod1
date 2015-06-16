@@ -6,7 +6,6 @@
 # include "Camera.hpp"
 # include "Map.hpp"
 
-# define VTAB 		5000 // vertex_tab size
 # define MAP_SIZE	4
 
 class Engine

@@ -2,7 +2,7 @@
 
 Engine::Engine(void)
 {
-	this->vertex_tab = new float [VTAB];
+	this->init();
 	return ;
 }
 
@@ -126,6 +126,8 @@ Engine::init(void)
 		return (sdlError(0));
 	this->camera = new Camera();
 	this->map = new Map(MAP_SIZE);
+	this->vertex_tab = new float [this->map->fa_size];
+	map->print();
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(this->fov, (double)this->x_res / (double)this->y_res, this->z_near, this->z_far);
@@ -140,7 +142,7 @@ Engine::init(void)
 
 	// Generate and print points
 	fillRandomly(0, 128);
-	printArray(0, 128);
+	// printArray(0, 128);
 	return (0);
 }
 
