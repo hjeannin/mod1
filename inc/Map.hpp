@@ -22,9 +22,9 @@ public:
 
     t_p     **map;
 
-    float   *ground_array;
-    float   *water_array;
-    float	*sides_array;
+    float     *ground_array;
+    float     *water_array;
+    float     *sides_array;
 
     int		ga_size; // ground array
     int		wa_size; // water array

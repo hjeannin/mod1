@@ -42,6 +42,8 @@ public:
 	void	loop(void);
 	void	render(void);
 	void	renderAxes(void);
+	void	renderGround(void);
+	void	renderWater(void);
 	void	fillRandomly(int start, int size);
 	int		sdlError(int code);
 	void	setFOV(int new_fov);
