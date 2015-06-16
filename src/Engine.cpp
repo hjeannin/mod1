@@ -186,32 +186,7 @@ Engine::loop(void)
 				break;
 			case SDL_KEYUP:
 				camera->onKeyboard(event.key);
-				if (event.key.keysym.scancode == SDL_SCANCODE_K)
-				{
-					if (this->light0status == true)
-					{
-						glDisable(GL_LIGHT0);
-						this->light0status = false;
-					}
-					else
-					{
-						glEnable(GL_LIGHT0);
-						this->light0status = true;
-					}
-				}
-				if (event.key.keysym.scancode == SDL_SCANCODE_L)
-				{
-					if (this->light1status == true)
-					{
-						glDisable(GL_LIGHT1);
-						this->light1status = false;
-					}
-					else
-					{
-						glEnable(GL_LIGHT1);
-						this->light1status = true;
-					}
-				}
+				// if (event.key.keysym.scancode == SDL_SCANCODE_K)
 				if (event.key.keysym.scancode == SDL_SCANCODE_PAGEUP)
 					this->setFOV(this->fov + 10);
 				if (event.key.keysym.scancode == SDL_SCANCODE_PAGEDOWN)
