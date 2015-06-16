@@ -20,6 +20,7 @@ Engine::Engine(int status) : _status(status)
 Engine::~Engine(void)
 {
 	delete [] this->vertex_tab;
+	delete(this->map);
 	SDL_Quit();
 	return ;
 }
@@ -76,7 +77,7 @@ Engine::initLight(void)
 	float ambientLight_0[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	float diffuseLight_0[] = { 0.6f, 0.0f, 0.0f, 1.0f };
 	float specularLight_0[] = { 0.9f, 0.0f, 0.0f, 1.0f };
-	float position_0[] = { -0.4f, 0.0f, 0.6f, 1.0f };
+	float position_0[] = { 0.0f, 0.0f, 1.0f, 1.0f };
 	glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight_0);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight_0);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight_0);
@@ -87,7 +88,7 @@ Engine::initLight(void)
 	float ambientLight_1[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	float diffuseLight_1[] = { 0.0f, 0.6f, 0.0f, 1.0f };
 	float specularLight_1[] = { 0.0f, 0.9f, 0.0f, 1.0f };
-	float position_1[] = { 0.4f, 0.0f, 0.6f, 1.0f };
+	float position_1[] = { 0.0f, 0.0f, 1.0f, 1.0f };
 	glLightfv(GL_LIGHT1, GL_AMBIENT, ambientLight_1);
 	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuseLight_1);
 	glLightfv(GL_LIGHT1, GL_SPECULAR, specularLight_1);
@@ -122,6 +123,7 @@ Engine::init(void)
 	if (!(this->context = SDL_GL_CreateContext(this->window)))
 		return (sdlError(0));
 	this->camera = new Camera();
+	this->map = new Map(MAP_SIZE);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(this->fov, (double)this->x_res / (double)this->y_res, this->z_near, this->z_far);

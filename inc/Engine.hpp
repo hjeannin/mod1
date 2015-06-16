@@ -4,8 +4,10 @@
 # include <iostream>
 # include <unistd.h>
 # include "Camera.hpp"
+# include "Map.hpp"
 
-# define VTAB 5000 // vertex_tab size
+# define VTAB 		5000 // vertex_tab size
+# define MAP_SIZE	4
 
 class Engine
 {
@@ -16,6 +18,7 @@ public:
 	SDL_Window			*window;
 	SDL_GLContext		context;
 	Camera				*camera;
+	Map					*map;
 	float				*vertex_tab;
 
 	int					x_res;
