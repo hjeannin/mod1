@@ -42,7 +42,6 @@ public:
 	void	fillRandomly(int start, int size);
 	void	printArray(int start, int end);
 	void	renderTriangleArray(int start, int size);
-	void	renderPointArray(int start, int size);
 	int		sdlError(int code);
 	void	setFOV(int new_fov);
 	void	initLight(void);

@@ -264,14 +264,6 @@ Engine::renderTriangleArray(int start, int size)
 }
 
 void
-Engine::renderPointArray(int start, int size)
-{
-	glEnableVertexAttribArray(0);
-	glDrawArrays(GL_POINTS, start, size/3);
-	glDisableVertexAttribArray(0);
-}
-
-void
 Engine::renderAxes(void)
 {
 	glBegin(GL_LINES);
