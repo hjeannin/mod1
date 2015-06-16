@@ -73,10 +73,11 @@ Engine::initLight(void)
 	this->light0status = true;
 	this->light1status = true;
 
+	// Blue Water
 	glEnable(GL_LIGHT0);
 	float ambientLight_0[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-	float diffuseLight_0[] = { 0.6f, 0.0f, 0.0f, 1.0f };
-	float specularLight_0[] = { 0.9f, 0.0f, 0.0f, 1.0f };
+	float diffuseLight_0[] = { 0.0f, 0.6f, 0.0f, 1.0f };
+	float specularLight_0[] = { 0.0f, 0.9f, 0.0f, 1.0f };
 	float position_0[] = { 0.0f, 0.0f, 1.0f, 1.0f };
 	glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight_0);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight_0);
@@ -84,10 +85,11 @@ Engine::initLight(void)
 	glLightfv(GL_LIGHT0, GL_POSITION, position_0);
 
 
+	// Green Ground
 	glEnable(GL_LIGHT1);
 	float ambientLight_1[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-	float diffuseLight_1[] = { 0.0f, 0.6f, 0.0f, 1.0f };
-	float specularLight_1[] = { 0.0f, 0.9f, 0.0f, 1.0f };
+	float diffuseLight_1[] = { 0.0f, 0.0f, 0.6f, 1.0f };
+	float specularLight_1[] = { 0.0f, 0.0f, 0.9f, 1.0f };
 	float position_1[] = { 0.0f, 0.0f, 1.0f, 1.0f };
 	glLightfv(GL_LIGHT1, GL_AMBIENT, ambientLight_1);
 	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuseLight_1);
@@ -137,8 +139,8 @@ Engine::init(void)
 	initLight();
 
 	// Generate and print points
-	fillRandomly(0, 36);
-	printArray(0, 36);
+	fillRandomly(0, 128);
+	printArray(0, 128);
 	return (0);
 }
 
@@ -237,7 +239,17 @@ Engine::render(void)
 
  	glEnable(GL_LIGHTING); // light ON
 
+ 	glDisable(GL_LIGHT0);
+ 	glDisable(GL_LIGHT1);
+
+ 	glEnable(GL_LIGHT0);
 	renderTriangleArray(0, 36);
+	glDisable(GL_LIGHT0);
+
+	glEnable(GL_LIGHT1);
+	renderTriangleArray(36, 128);
+	glDisable(GL_LIGHT1);
+
 
  	glDisable(GL_LIGHTING); // light OFF
 
