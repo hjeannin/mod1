@@ -43,7 +43,6 @@ public:
 	void	render(void);
 	void	renderAxes(void);
 	void	fillRandomly(int start, int size);
-	void	renderTriangleArray(int index, int start, int size);
 	int		sdlError(int code);
 	void	setFOV(int new_fov);
 	void	initLight(void);

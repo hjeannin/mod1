@@ -172,6 +172,38 @@ Engine::printArray(float *array, int array_size)
 }
 
 void
+Engine::render(void)
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	this->camera->look();
+
+	renderAxes();
+
+ 	glEnable(GL_LIGHTING); // light ON
+
+ 	glDisable(GL_LIGHT0);
+ 	glDisable(GL_LIGHT1);
+
+ 	glEnable(GL_LIGHT0);
+	glEnableVertexAttribArray(0);
+	glDrawArrays(GL_TRIANGLES, 0, map->ga_size / 3);
+	glDisableVertexAttribArray(0);
+	glDisable(GL_LIGHT0);
+
+	glEnable(GL_LIGHT1);
+	glEnableVertexAttribArray(1);
+	glDrawArrays(GL_TRIANGLES, 0, map->wa_size / 3);
+	glDisableVertexAttribArray(1);
+	glDisable(GL_LIGHT1);
+
+ 	glDisable(GL_LIGHTING); // light OFF
+
+	glFlush();
+}
+
+void
 Engine::loop(void)
 {
 	SDL_Event		event;
@@ -217,34 +249,6 @@ Engine::loop(void)
 }
 
 void
-Engine::render(void)
-{
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	this->camera->look();
-
-	renderAxes();
-
- 	glEnable(GL_LIGHTING); // light ON
-
- 	glDisable(GL_LIGHT0);
- 	glDisable(GL_LIGHT1);
-
- 	glEnable(GL_LIGHT0);
-	renderTriangleArray(0, 0, map->ga_size);
-	glDisable(GL_LIGHT0);
-
-	glEnable(GL_LIGHT1);
-	renderTriangleArray(1, 0, map->wa_size);
-	glDisable(GL_LIGHT1);
-
- 	glDisable(GL_LIGHTING); // light OFF
-
-	glFlush();
-}
-
-void
 Engine::fillRandomly(int start, int size)
 {
 	int			i = start;
@@ -255,14 +259,6 @@ Engine::fillRandomly(int start, int size)
 		this->vertex_tab[i] = ((float)random() / (float)RAND_MAX) - 0.5;
 		i++;
 	}
-}
-
-void
-Engine::renderTriangleArray(int index, int start, int size)
-{
-	glEnableVertexAttribArray(index);
-	glDrawArrays(GL_TRIANGLES, start, size/3);
-	glDisableVertexAttribArray(index);
 }
 
 void
