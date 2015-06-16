@@ -128,6 +128,7 @@ Engine::init(void)
 	this->map = new Map(MAP_SIZE);
 	this->vertex_tab = new float [this->map->fa_size];
 	map->print();
+
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(this->fov, (double)this->x_res / (double)this->y_res, this->z_near, this->z_far);

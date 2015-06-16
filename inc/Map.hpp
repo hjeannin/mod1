@@ -43,6 +43,9 @@ public:
 	void	setMapSize(int map_size);
 
 	void	print(void);
+    void    fillGroundArray(void);
+    void    fillWaterArray(void);
+    void    fillSidesArray(void);
 
 	Map &operator=(Map const &rhs);
 };

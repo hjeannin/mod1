@@ -54,7 +54,138 @@ Map::~Map(void)
 	delete [] this->map;
 	delete [] this->ground_array;
 	delete [] this->water_array;
+    delete [] this->sides_array;
 	return ;
+}
+
+void
+Map::fillGroundArray(void)
+{
+    float   x = -0.5;
+    float   y = 0;
+    float   z = -0.5;
+    int     cur = 0;
+    int     i, j;
+
+    for (i = 0; i < this->_map_size - 1; i++)
+    {
+        for (j = 0; j < this->_map_size - 1; j++)
+        {
+            // main point
+            this->ground_array[cur] = x;
+            cur++;
+            this->ground_array[cur] = this->map[i][j].g;
+            cur++;
+            this->ground_array[cur] = z;
+            cur++;
+            // right
+            this->ground_array[cur] = x + this->space;
+            cur++;
+            this->ground_array[cur] = this->map[i][j + 1].g;
+            cur++;
+            this->ground_array[cur] = z;
+            cur++;
+            // bot right
+            this->ground_array[cur] = x + this->space;
+            cur++;
+            this->ground_array[cur] = this->map[i + 1][j + 1].g;
+            cur++;
+            this->ground_array[cur] = z + this->space;
+            cur++;
+            // main again
+            this->ground_array[cur] = x;
+            cur++;
+            this->ground_array[cur] = this->map[i][j].g;
+            cur++;
+            this->ground_array[cur] = z;
+            cur++;
+            // bot left
+            this->ground_array[cur] = x;
+            cur++;
+            this->ground_array[cur] = this->map[i + 1][j].g;
+            cur++;
+            this->ground_array[cur] = z + this->space;
+            cur++;
+            // bot right
+            this->ground_array[cur] = x + this->space;
+            cur++;
+            this->ground_array[cur] = this->map[i + 1][j + 1].g;
+            cur++;
+            this->ground_array[cur] = z + this->space;
+            cur++;
+            x += this->space;
+        }
+        x = -0.5;
+        z += this->space;
+    }
+}
+
+void
+Map::fillWaterArray(void)
+{
+    float   x = -0.5;
+    float   y = 0;
+    float   z = -0.5;
+    int     cur = 0;
+    int     i, j;
+
+    for (i = 0; i < this->_map_size - 1; i++)
+    {
+        for (j = 0; j < this->_map_size - 1; j++)
+        {
+            // main point
+            this->water_array[cur] = x;
+            cur++;
+            this->water_array[cur] = this->map[i][j].w;
+            cur++;
+            this->water_array[cur] = z;
+            cur++;
+            // right
+            this->water_array[cur] = x + this->space;
+            cur++;
+            this->water_array[cur] = this->map[i][j + 1].w;
+            cur++;
+            this->water_array[cur] = z;
+            cur++;
+            // bot right
+            this->water_array[cur] = x + this->space;
+            cur++;
+            this->water_array[cur] = this->map[i + 1][j + 1].w;
+            cur++;
+            this->water_array[cur] = z + this->space;
+            cur++;
+            // main again
+            this->water_array[cur] = x;
+            cur++;
+            this->water_array[cur] = this->map[i][j].w;
+            cur++;
+            this->water_array[cur] = z;
+            cur++;
+            // bot left
+            this->water_array[cur] = x;
+            cur++;
+            this->water_array[cur] = this->map[i + 1][j].w;
+            cur++;
+            this->water_array[cur] = z + this->space;
+            cur++;
+            // bot right
+            this->water_array[cur] = x + this->space;
+            cur++;
+            this->water_array[cur] = this->map[i + 1][j + 1].w;
+            cur++;
+            this->water_array[cur] = z + this->space;
+            cur++;
+            x += this->space;
+        }
+        x = -0.5;
+        z += this->space;
+    }
+}
+
+void
+Map::fillSidesArray(void)
+{
+    return ;
 }
 
 void
