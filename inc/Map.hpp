@@ -4,6 +4,7 @@
 # define SQUARE 6
 # define POINT	3
 # define MAPSIZE (this->_map_size - 1)
+# define MAPBOTTOM 18
 
 #include <iostream>
 #include <cstdlib>
@@ -40,6 +41,8 @@ public:
 	void	setMapSize(int map_size);
 
 	void	print(void);
+    void    raiseWaterLevel(void);
+    void    resetWaterLevel(void);
     void    fillGroundArray(void);
     void    fillWaterArray(void);
 

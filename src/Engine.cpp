@@ -143,7 +143,6 @@ Engine::init(void)
 	//	fillRandomly(0, 128);
 	// printArray(0, 128);
 
-	// Convert map and put it in vertexTab
 	map->fillGroundArray();
 	map->fillWaterArray();
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, this->map->water_array);
@@ -163,6 +162,10 @@ Engine::render(void)
 
 	renderAxes();
 	renderGround();
+	map->raiseWaterLevel();
+	if (map->map[0][0].w > 0.5)
+		map->resetWaterLevel();
+	map->fillWaterArray();
 	renderWater();
 
 	glFlush();

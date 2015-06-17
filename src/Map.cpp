@@ -27,12 +27,12 @@ Map::Map(int map_size) : _map_size(map_size)
                 this->map[i][j].g = -0.5;
             else
                 this->map[i][j].g = ((float)random() / (float)RAND_MAX) - 0.5;
-            this->map[i][j].w = -0.2;
+            this->map[i][j].w = -0.4;
             j++;
         }
         i++;
     }
-    this->ga_size = POINT * SQUARE * MAPSIZE * MAPSIZE + 18;
+    this->ga_size = POINT * SQUARE * MAPSIZE * MAPSIZE + MAPBOTTOM;
     this->wa_size = (POINT * SQUARE * MAPSIZE * MAPSIZE) + (POINT * SQUARE * MAPSIZE * 4);
 
     this->space = 1.0 / ((float)this->_map_size - 1);
@@ -55,6 +55,32 @@ Map::~Map(void)
 	delete [] this->ground_array;
 	delete [] this->water_array;
 	return ;
+}
+
+void
+Map::raiseWaterLevel(void)
+{
+    int i;
+    int j;
+
+    for (i = 0; i < this->_map_size; i++)
+    {
+        for (j = 0; j < this->_map_size; j++)
+            this->map[i][j].w += 0.001;
+    }
+}
+
+void
+Map::resetWaterLevel(void)
+{
+    int i;
+    int j;
+
+    for (i = 0; i < this->_map_size; i++)
+    {
+        for (j = 0; j < this->_map_size; j++)
+            this->map[i][j].w = -0.5;
+    }
 }
 
 void
