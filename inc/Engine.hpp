@@ -26,8 +26,7 @@ public:
 	double				z_near;
 	double				z_far;
 
-	bool				light0status;
-	bool				light1status;
+	bool				water_status;
 
 	Engine(void);
 	Engine(const Engine &src);

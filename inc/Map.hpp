@@ -5,6 +5,8 @@
 # define POINT	3
 # define MAPSIZE (this->_map_size - 1)
 # define MAPBOTTOM 18
+# define WATER_START_LEVEL -0.2
+
 
 #include <iostream>
 #include <cstdlib>

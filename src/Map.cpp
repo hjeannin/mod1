@@ -27,7 +27,7 @@ Map::Map(int map_size) : _map_size(map_size)
                 this->map[i][j].g = -0.5;
             else
                 this->map[i][j].g = ((float)random() / (float)RAND_MAX) - 0.5;
-            this->map[i][j].w = -0.4;
+            this->map[i][j].w = WATER_START_LEVEL;
             j++;
         }
         i++;
