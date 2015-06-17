@@ -23,14 +23,15 @@ Map::Map(int map_size) : _map_size(map_size)
         j = 0;
         while (j < map_size)
         {
-            this->map[i][j].g = -0.5;
+            this->map[i][j].g = -0.4;
             this->map[i][j].w = -0.2;
             j++;
         }
         i++;
     }
     this->ga_size = POINT * SQUARE * MAPSIZE * MAPSIZE;
-    this->wa_size = (POINT * SQUARE * MAPSIZE * MAPSIZE) + (POINT * SQUARE * MAPSIZE * 4);
+    // this->wa_size = (POINT * SQUARE * MAPSIZE * MAPSIZE) + (POINT * SQUARE * MAPSIZE * 4);
+    this->wa_size = (POINT * SQUARE * MAPSIZE * MAPSIZE) + (POINT * SQUARE * MAPSIZE * 1);
 
     this->space = 1.0 / ((float)this->_map_size - 1);
 
@@ -176,7 +177,62 @@ Map::fillWaterArray(void)
         x = -0.5;
         z += this->space;
     }
+
     //TODO add sides for water.
+
+    // First row config
+    x = -0.5;
+    y = 0;
+    z = -0.5;
+    i = 0;
+    j = 0;
+
+    for (i = 0; i < this->_map_size - 1; i++)
+    {
+        // main point
+        this->water_array[cur] = x;
+        cur++;
+        this->water_array[cur] = this->map[i][j].w;
+        cur++;
+        this->water_array[cur] = z;
+        cur++;
+        // ground point
+        this->water_array[cur] = x;
+        cur++;
+        this->water_array[cur] = this->map[i][j].g;
+        cur++;
+        this->water_array[cur] = z;
+        cur++;
+        // ground point next
+        this->water_array[cur] = x + this->space;
+        cur++;
+        this->water_array[cur] = this->map[i + 1][j].g;
+        cur++;
+        this->water_array[cur] = z;
+        cur++;
+        // main point again
+        this->water_array[cur] = x;
+        cur++;
+        this->water_array[cur] = this->map[i][j].w;
+        cur++;
+        this->water_array[cur] = z;
+        cur++;
+        // main point next
+        this->water_array[cur] = x + this->space;
+        cur++;
+        this->water_array[cur] = this->map[i + 1][j].w;
+        cur++;
+        this->water_array[cur] = z;
+        cur++;
+        // ground point next
+        this->water_array[cur] = x + this->space;
+        cur++;
+        this->water_array[cur] = this->map[i + 1][j].g;
+        cur++;
+        this->water_array[cur] = z;
+        cur++;
+        x += this->space;
+    }
 }
 
 void
@@ -195,8 +251,7 @@ Map::print(void)
      	j = 0;
         while (j < this->_map_size)
         {
-            std::cout << "[" << this->map[i][j].g << ", " << this->map[i][j].w  <<\
- "]";
+            std::cout << "[" << this->map[i][j].g << ", " << this->map[i][j].w  << "]";
             j++;
     	}
         std::cout << std::endl;

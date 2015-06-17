@@ -183,6 +183,7 @@ Engine::renderWater(void)
 void
 Engine::renderGround(void)
 {
+	// TODO Use Display List (check link in chrome)
 	int i = 0;
 
 	glBegin(GL_TRIANGLES);
@@ -204,10 +205,10 @@ Engine::printArray(float *array, int array_size)
     for (i = 0; i < array_size; i++)
     {
         std::cout << "[" << array[i] << "]";
-        // if (i % 3 == 0)
-        	// std::cout << std::endl;
+        if ((i - 1) % 3 == 1)
+        	std::cout << "   ";
     }
-
+	std::cout << std::endl;
 }
 
 void
