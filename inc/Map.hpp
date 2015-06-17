@@ -45,6 +45,7 @@ public:
 	void	print(void);
     void    raiseWaterLevel(void);
     void    resetWaterLevel(void);
+    void    generateWaterNoise(float power);
     void    fillGroundArray(void);
     void    fillWaterArray(void);
 

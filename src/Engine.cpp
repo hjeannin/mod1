@@ -72,15 +72,24 @@ Engine::initLight(void)
 {
 	// Sun Light
 	glEnable(GL_LIGHT0);
-	float ambientLight_0[] = { 0.2f, 0.2f, 0.2f, 1.0f };
-	float diffuseLight_0[] = { 0.6f, 0.6f, 0.6f, 1.0f };
-	float specularLight_0[] = { 0.9f, 0.9f, 0.9f, 1.0f };
+	float ambientLight_0[] = { 0.8f, 0.9f, 1.0f, 1.0f };
+	float diffuseLight_0[] = { 0.7f, 0.7f, 0.7f, 1.0f };
+	float specularLight_0[] = { 0.2f, 0.2f, 0.2f, 1.0f };
 	float position_0[] = { 0.0f, 1.0f, 0.5f, 1.0f };
 	glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight_0);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight_0);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight_0);
 	glLightfv(GL_LIGHT0, GL_POSITION, position_0);
 
+	// Water Material
+	float mcolor[] = { 0.0f, 0.4f, 0.6f, 1.0f };
+	glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, mcolor);
+	float shine[] = { 1.0f };
+	glMaterialfv(GL_FRONT, GL_SHININESS, shine);
+	float specular[] = { 0.0f };
+	glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
+	// float emission[] = {0.8f, 0.8f, 1.0f, 0.1f};
+	// glMaterialfv(GL_FRONT, GL_EMISSION, emission);
 
 	// Green Ground
 	// glEnable(GL_LIGHT1);
@@ -92,15 +101,6 @@ Engine::initLight(void)
 	// glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuseLight_1);
 	// glLightfv(GL_LIGHT1, GL_SPECULAR, specularLight_1);
 	// glLightfv(GL_LIGHT1, GL_POSITION, position_1);
-
-	float mcolor[] = { 0.0f, 0.0f, 0.5f, 1.0f };
-	glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, mcolor);
-//	float shine[] = { 0.1f };
-//	float specular[] = { 1.0f };
-//	float emission[] = {-1.0f, -1.0f, 1.0f, 1.0f};
-	// glMaterialfv(GL_FRONT, GL_SHININESS, shine);
-	// glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
-	// glMaterialfv(GL_FRONT, GL_EMISSION, emission);
 }
 
 int
@@ -126,8 +126,9 @@ Engine::init(void)
 	this->camera = new Camera();
 	this->map = new Map(MAP_SIZE);
 	this->vertex_tab = new float [500];
-	this->water_status = false;
-	map->print();
+	this->water_level = false;
+	this->water_noise = false;
+	// map->print();
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -146,8 +147,8 @@ Engine::init(void)
 	map->fillGroundArray();
 	map->fillWaterArray();
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, this->map->water_array);
-	printArray(this->map->ground_array, this->map->ga_size);
-	printArray(this->map->water_array, this->map->wa_size);
+	// printArray(this->map->ground_array, this->map->ga_size);
+	// printArray(this->map->water_array, this->map->wa_size);
 
 	return (0);
 }
@@ -162,13 +163,15 @@ Engine::render(void)
 
 	renderAxes();
 	renderGround();
-	if (water_status == true)
+	if (water_level == true)
 	{
 		map->raiseWaterLevel();
 		if (map->map[0][0].w > 0.5)
 			map->resetWaterLevel();
-		map->fillWaterArray();
 	}
+	if (water_noise == true)
+		map->generateWaterNoise(0.001);
+	map->fillWaterArray();
 	renderWater();
 
 	glFlush();
@@ -244,7 +247,9 @@ Engine::loop(void)
 			case SDL_KEYUP:
 				camera->onKeyboard(event.key);
 				if (event.key.keysym.scancode == SDL_SCANCODE_W)
-					(water_status) ? water_status = false : water_status = true;
+					(water_level) ? water_level = false : water_level = true;
+				if (event.key.keysym.scancode == SDL_SCANCODE_N)
+					(water_noise) ? water_noise = false : water_noise = true;
 				if (event.key.keysym.scancode == SDL_SCANCODE_PAGEUP)
 					this->setFOV(this->fov + 10);
 				if (event.key.keysym.scancode == SDL_SCANCODE_PAGEDOWN)

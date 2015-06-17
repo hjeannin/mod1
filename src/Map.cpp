@@ -84,6 +84,19 @@ Map::resetWaterLevel(void)
 }
 
 void
+Map::generateWaterNoise(float power)
+{
+    int i;
+    int j;
+
+    for (i = 0; i < this->_map_size; i++)
+    {
+        for (j = 0; j < this->_map_size; j++)
+            this->map[i][j].w += (((float)random() / (float)RAND_MAX) - 0.5) * power;
+    }
+}
+
+void
 Map::fillGroundArray(void)
 {
     float   x = -0.5;

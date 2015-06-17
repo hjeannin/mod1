@@ -6,7 +6,7 @@
 # include "Camera.hpp"
 # include "Map.hpp"
 
-# define MAP_SIZE	12
+# define MAP_SIZE	120
 
 class Engine
 {
@@ -26,7 +26,8 @@ public:
 	double				z_near;
 	double				z_far;
 
-	bool				water_status;
+	bool				water_level;
+	bool				water_noise;
 
 	Engine(void);
 	Engine(const Engine &src);
