@@ -30,8 +30,7 @@ Map::Map(int map_size) : _map_size(map_size)
         i++;
     }
     this->ga_size = POINT * SQUARE * MAPSIZE * MAPSIZE;
-    // this->wa_size = (POINT * SQUARE * MAPSIZE * MAPSIZE) + (POINT * SQUARE * MAPSIZE * 4);
-    this->wa_size = (POINT * SQUARE * MAPSIZE * MAPSIZE) + (POINT * SQUARE * MAPSIZE * 1);
+    this->wa_size = (POINT * SQUARE * MAPSIZE * MAPSIZE) + (POINT * SQUARE * MAPSIZE * 4);
 
     this->space = 1.0 / ((float)this->_map_size - 1);
 
@@ -232,6 +231,168 @@ Map::fillWaterArray(void)
         this->water_array[cur] = z;
         cur++;
         x += this->space;
+    }
+
+    // Last row config
+    x = -0.5;
+    y = 0;
+    z = 0.5;
+    i = 0;
+    j = this->_map_size - 1;
+
+    for (i = 0; i < this->_map_size - 1; i++)
+    {
+        // main point
+        this->water_array[cur] = x;
+        cur++;
+        this->water_array[cur] = this->map[i][j].w;
+        cur++;
+        this->water_array[cur] = z;
+        cur++;
+        // ground point
+        this->water_array[cur] = x;
+        cur++;
+        this->water_array[cur] = this->map[i][j].g;
+        cur++;
+        this->water_array[cur] = z;
+        cur++;
+        // ground point next
+        this->water_array[cur] = x + this->space;
+        cur++;
+        this->water_array[cur] = this->map[i + 1][j].g;
+        cur++;
+        this->water_array[cur] = z;
+        cur++;
+        // main point again
+        this->water_array[cur] = x;
+        cur++;
+        this->water_array[cur] = this->map[i][j].w;
+        cur++;
+        this->water_array[cur] = z;
+        cur++;
+        // main point next
+        this->water_array[cur] = x + this->space;
+        cur++;
+        this->water_array[cur] = this->map[i + 1][j].w;
+        cur++;
+        this->water_array[cur] = z;
+        cur++;
+        // ground point next
+        this->water_array[cur] = x + this->space;
+        cur++;
+        this->water_array[cur] = this->map[i + 1][j].g;
+        cur++;
+        this->water_array[cur] = z;
+        cur++;
+        x += this->space;
+    }
+
+    // Left column config
+    x = -0.5;
+    y = 0;
+    z = -0.5;
+    i = 0;
+    j = 0;
+
+    for (j = 0; j < this->_map_size - 1; j++)
+    {
+        // main point
+        this->water_array[cur] = x;
+        cur++;
+        this->water_array[cur] = this->map[i][j].w;
+        cur++;
+        this->water_array[cur] = z;
+        cur++;
+        // ground point
+        this->water_array[cur] = x;
+        cur++;
+        this->water_array[cur] = this->map[i][j].g;
+        cur++;
+        this->water_array[cur] = z;
+        cur++;
+        // ground point next
+        this->water_array[cur] = x;
+        cur++;
+        this->water_array[cur] = this->map[i][j + 1].g;
+        cur++;
+        this->water_array[cur] = z + this->space;
+        cur++;
+        // main point again
+        this->water_array[cur] = x;
+        cur++;
+        this->water_array[cur] = this->map[i][j].w;
+        cur++;
+        this->water_array[cur] = z;
+        cur++;
+        // main point next
+        this->water_array[cur] = x;
+        cur++;
+        this->water_array[cur] = this->map[i][j + 1].w;
+        cur++;
+        this->water_array[cur] = z + this->space;
+        cur++;
+        // ground point next
+        this->water_array[cur] = x;
+        cur++;
+        this->water_array[cur] = this->map[i][j + 1].g;
+        cur++;
+        this->water_array[cur] = z + this->space;
+        cur++;
+        z += this->space;
+    }
+
+    // Right column config
+    x = 0.5;
+    y = 0;
+    z = -0.5;
+    i = this->_map_size - 1;
+    j = 0;
+
+    for (j = 0; j < this->_map_size - 1; j++)
+    {
+        // main point
+        this->water_array[cur] = x;
+        cur++;
+        this->water_array[cur] = this->map[i][j].w;
+        cur++;
+        this->water_array[cur] = z;
+        cur++;
+        // ground point
+        this->water_array[cur] = x;
+        cur++;
+        this->water_array[cur] = this->map[i][j].g;
+        cur++;
+        this->water_array[cur] = z;
+        cur++;
+        // ground point next
+        this->water_array[cur] = x;
+        cur++;
+        this->water_array[cur] = this->map[i][j + 1].g;
+        cur++;
+        this->water_array[cur] = z + this->space;
+        cur++;
+        // main point again
+        this->water_array[cur] = x;
+        cur++;
+        this->water_array[cur] = this->map[i][j].w;
+        cur++;
+        this->water_array[cur] = z;
+        cur++;
+        // main point next
+        this->water_array[cur] = x;
+        cur++;
+        this->water_array[cur] = this->map[i][j + 1].w;
+        cur++;
+        this->water_array[cur] = z + this->space;
+        cur++;
+        // ground point next
+        this->water_array[cur] = x;
+        cur++;
+        this->water_array[cur] = this->map[i][j + 1].g;
+        cur++;
+        this->water_array[cur] = z + this->space;
+        cur++;
+        z += this->space;
     }
 }
 
