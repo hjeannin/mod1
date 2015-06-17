@@ -23,13 +23,16 @@ Map::Map(int map_size) : _map_size(map_size)
         j = 0;
         while (j < map_size)
         {
-            this->map[i][j].g = -0.4;
+            if (i == 0 || i == map_size - 1 || j == 0 || j == map_size - 1)
+                this->map[i][j].g = -0.5;
+            else
+                this->map[i][j].g = ((float)random() / (float)RAND_MAX) - 0.5;
             this->map[i][j].w = -0.2;
             j++;
         }
         i++;
     }
-    this->ga_size = POINT * SQUARE * MAPSIZE * MAPSIZE;
+    this->ga_size = POINT * SQUARE * MAPSIZE * MAPSIZE + 18;
     this->wa_size = (POINT * SQUARE * MAPSIZE * MAPSIZE) + (POINT * SQUARE * MAPSIZE * 4);
 
     this->space = 1.0 / ((float)this->_map_size - 1);
@@ -114,6 +117,49 @@ Map::fillGroundArray(void)
         x = -0.5;
         z += this->space;
     }
+    // ground bottom
+    // up left
+    this->ground_array[cur] = -0.5;
+    cur++;
+    this->ground_array[cur] = -0.5;
+    cur++;
+    this->ground_array[cur] = -0.5;
+    cur++;
+    // up right
+    this->ground_array[cur] = 0.5;
+    cur++;
+    this->ground_array[cur] = -0.5;
+    cur++;
+    this->ground_array[cur] = -0.5;
+    cur++;
+    // down left
+    this->ground_array[cur] = -0.5;
+    cur++;
+    this->ground_array[cur] = -0.5;
+    cur++;
+    this->ground_array[cur] = 0.5;
+    cur++;
+    // up right
+    this->ground_array[cur] = 0.5;
+    cur++;
+    this->ground_array[cur] = -0.5;
+    cur++;
+    this->ground_array[cur] = -0.5;
+    cur++;
+    // down right
+    this->ground_array[cur] = 0.5;
+    cur++;
+    this->ground_array[cur] = -0.5;
+    cur++;
+    this->ground_array[cur] = 0.5;
+    cur++;
+    // down left
+    this->ground_array[cur] = -0.5;
+    cur++;
+    this->ground_array[cur] = -0.5;
+    cur++;
+    this->ground_array[cur] = 0.5;
+    cur++;
 }
 
 void
