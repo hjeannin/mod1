@@ -43,6 +43,7 @@ public:
 	void	setMapSize(int map_size);
 
 	void	print(void);
+    void    generateRandomMap(void);
     void    raiseWaterLevel(void);
     void    resetWaterLevel(void);
     void    generateWaterNoise(float power);

@@ -13,30 +13,10 @@ Map::Map(Map const &src)
 
 Map::Map(int map_size) : _map_size(map_size)
 {
-	int     i = 0;
-    int     j = 0;
-
-    this->map = new t_p * [map_size];
-    while (i < map_size)
-    {
-        this->map[i] = new t_p[map_size];
-        j = 0;
-        while (j < map_size)
-        {
-            if (i == 0 || i == map_size - 1 || j == 0 || j == map_size - 1)
-                this->map[i][j].g = -0.5;
-            else
-                this->map[i][j].g = ((float)random() / (float)RAND_MAX) - 0.5;
-            this->map[i][j].w = WATER_START_LEVEL;
-            j++;
-        }
-        i++;
-    }
+    this->generateRandomMap();
     this->ga_size = POINT * SQUARE * MAPSIZE * MAPSIZE + MAPBOTTOM;
     this->wa_size = (POINT * SQUARE * MAPSIZE * MAPSIZE) + (POINT * SQUARE * MAPSIZE * 4);
-
     this->space = 1.0 / ((float)this->_map_size - 1);
-
     this->ground_array = new float[this->ga_size];
     this->water_array = new float[this->wa_size];
 	return ;
@@ -55,6 +35,30 @@ Map::~Map(void)
 	delete [] this->ground_array;
 	delete [] this->water_array;
 	return ;
+}
+
+void
+Map::generateRandomMap(void)
+{
+    int     i = 0;
+    int     j = 0;
+
+    this->map = new t_p * [this->_map_size];
+    while (i < this->_map_size)
+    {
+        this->map[i] = new t_p[this->_map_size];
+        j = 0;
+        while (j < this->_map_size)
+        {
+            if (i == 0 || i == this->_map_size - 1 || j == 0 || j == this->_map_size - 1)
+                this->map[i][j].g = -0.5;
+            else
+                this->map[i][j].g = ((float)random() / (float)RAND_MAX) - 0.5;
+            this->map[i][j].w = WATER_START_LEVEL;
+            j++;
+        }
+        i++;
+    }
 }
 
 void
