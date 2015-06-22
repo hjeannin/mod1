@@ -146,7 +146,7 @@ Engine::init(void)
 
 	map->fillGroundArray();
 	map->fillWaterArray();
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, this->map->water_array);
+	// glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, this->map->water_array);
 	// printArray(this->map->ground_array, this->map->ga_size);
 	// printArray(this->map->water_array, this->map->wa_size);
 
@@ -171,7 +171,7 @@ Engine::render(void)
 	}
 	if (water_noise == true)
 		map->generateWaterNoise(0.001);
-	map->fillWaterArray();
+//	map->fillWaterArray();
 	renderWater();
 
 	glFlush();
@@ -182,9 +182,9 @@ Engine::renderWater(void)
 {
  	glEnable(GL_LIGHTING); // light ON
   	glEnable(GL_LIGHT0);
-	glEnableVertexAttribArray(0);
-	glDrawArrays(GL_TRIANGLES, 0, map->wa_size / 3);
-	glDisableVertexAttribArray(0);
+	// glEnableVertexAttribArray(0);
+ 	// glDrawArrays(GL_TRIANGLES, 0, map->wa_size / 3);
+	// glDisableVertexAttribArray(0);
 	glDisable(GL_LIGHT0);
  	glDisable(GL_LIGHTING); // light OFF
 }
@@ -196,9 +196,9 @@ Engine::renderGround(void)
 	int i = 0;
 
 	glBegin(GL_TRIANGLES);
-	glColor3f(0.6f, 0.4f, 0.2f);
 	for (i = 0; i < this->map->ga_size; i += 9)
 	{
+		glColor3f(0.6f, 0.4f, 0.2f);
 		glVertex3f(this->map->ground_array[i], this->map->ground_array[i + 1], this->map->ground_array[i + 2]);
 		glVertex3f(this->map->ground_array[i + 3], this->map->ground_array[i + 4], this->map->ground_array[i + 5]);
 		glVertex3f(this->map->ground_array[i + 6], this->map->ground_array[i + 7], this->map->ground_array[i + 8]);
