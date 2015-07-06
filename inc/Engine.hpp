@@ -6,7 +6,7 @@
 # include "Camera.hpp"
 # include "Map.hpp"
 
-# define MAP_SIZE	12
+# define MAP_SIZE	160
 
 class Engine
 {

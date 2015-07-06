@@ -15,6 +15,7 @@ class Map
 {
 private:
 	int		_map_size;
+    float   *_source_map;
 
 public:
     typedef struct      s_p
@@ -43,6 +44,7 @@ public:
 	void	setMapSize(int map_size);
 
 	void	print(void);
+    void    readSourceMap(void);
     void    generateRandomMap(void);
     void    raiseWaterLevel(void);
     void    resetWaterLevel(void);

@@ -198,7 +198,11 @@ Engine::renderGround(void)
 	glBegin(GL_TRIANGLES);
 	for (i = 0; i < this->map->ga_size; i += 9)
 	{
-		glColor3f(0.6f, 0.4f, 0.2f);
+		// glColor3f(0.6f, 0.4f, 0.2f);
+		if (this->map->ground_array[i + 1] > 0.0f)
+			glColor3f(0.6f, 0.8f, 0.2f);	
+		else
+			glColor3f(0.6f, 0.4f, 0.2f);
 		glVertex3f(this->map->ground_array[i], this->map->ground_array[i + 1], this->map->ground_array[i + 2]);
 		glVertex3f(this->map->ground_array[i + 3], this->map->ground_array[i + 4], this->map->ground_array[i + 5]);
 		glVertex3f(this->map->ground_array[i + 6], this->map->ground_array[i + 7], this->map->ground_array[i + 8]);

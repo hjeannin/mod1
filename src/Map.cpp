@@ -13,7 +13,8 @@ Map::Map(Map const &src)
 
 Map::Map(int map_size) : _map_size(map_size)
 {
-    this->generateRandomMap();
+    readSourceMap();
+    // this->generateRandomMap();
     this->ga_size = POINT * SQUARE * MAPSIZE * MAPSIZE + MAPBOTTOM;
     this->wa_size = (POINT * SQUARE * MAPSIZE * MAPSIZE) + (POINT * SQUARE * MAPSIZE * 4);
     this->space = 1.0 / ((float)this->_map_size - 1);
@@ -35,6 +36,47 @@ Map::~Map(void)
 	delete [] this->ground_array;
 	delete [] this->water_array;
 	return ;
+}
+
+void
+Map::readSourceMap(void)
+{
+    float source_map[] = {0.4f,  0.2f,  0.4f, -0.2f,
+                        -0.4f, -0.4f, -0.2f, -0.4f,
+                         0.4f, -0.2f,  0.4f, -0.4f,
+                        -0.4f,  0.4f,  0.4f,  0.2f};
+    int interpolation = MAPSIZE / 4;
+    int     i = 0;
+    int     j = 0;
+    int     k = 0;
+    int     inter = 0;
+
+    this->map = new t_p * [this->_map_size];
+    while (i < this->_map_size)
+    {
+        this->map[i] = new t_p[this->_map_size];
+        j = 0;
+        while (j < this->_map_size)
+        {
+            if (i == 0 || i == this->_map_size - 1 || j == 0 || j == this->_map_size - 1)
+                this->map[i][j].g = -0.5;
+            else
+            {
+                this->map[i][j].g = source_map[k % 16];
+                std::cout << this->map[i][j].g << std::endl;
+            }
+            this->map[i][j].w = WATER_START_LEVEL;
+            j++;
+            if (inter == interpolation)
+            {
+                k++;
+                std::cout << "K PLUSPLUS" << std::endl;
+                inter = 0;
+            }
+            inter++;
+        }
+        i++;
+    }   
 }
 
 void
