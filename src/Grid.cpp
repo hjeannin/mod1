@@ -13,7 +13,9 @@ Grid::Grid(const Grid &src)
 
 Grid::Grid(int size) : _size(size)
 {
-	allocate();
+	_array_size = _size * _size;
+	_array = new float[_array_size];
+	fill_with(0.1);
 	return ;
 }
 
@@ -23,15 +25,24 @@ Grid::~Grid(void)
 	return ;
 }
 
+float
+Grid::access(int x, int y)
+{
+	// out of boundaries will return 0.0
+	if (x < 0 || x > _size || y < 0 || y > _size)
+		return 0.0;
+	return _array[y * _size + x];
+}
+
 void
-Grid::allocate(void)
+Grid::fill_with(float n)
 {
 	int i;
-	_array_size = _size * _size;
-	_array = new float[_array_size];
+	
 	for (i = 0; i < _array_size; i++)
 	{
-		_array[i] = 0.4;
+		_array[i] = n;
+		n += 0.1;
 	}
 }
 

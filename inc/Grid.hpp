@@ -12,13 +12,15 @@ private:
 	float	*_array;
 	int		_array_size;
 
+
 public:
 	Grid(const Grid &src);
 	Grid(int size);
 	~Grid(void);
 
-	void	allocate(void);
 	void	print(void);
+	void	fill_with(float n);
+	float	access(int x, int y);
 
 	int	getSize(void) const;
 	Grid &operator=(const Grid &rhs);
