@@ -29,8 +29,10 @@ float
 Grid::access(int x, int y)
 {
 	// out of boundaries will return 0.0
-	if (x < 0 || x > _size || y < 0 || y > _size)
+	if (x <= 0 || x > _size || y <= 0 || y > _size)
 		return 0.0;
+	x--;
+	y--;
 	return _array[y * _size + x];
 }
 
@@ -38,7 +40,7 @@ void
 Grid::fill_with(float n)
 {
 	int i;
-	
+
 	for (i = 0; i < _array_size; i++)
 	{
 		_array[i] = n;
